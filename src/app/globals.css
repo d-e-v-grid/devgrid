@@ -61,7 +61,6 @@
 
   .scanlines {
     position: relative;
-    overflow: hidden;
   }
 
   .scanlines::before {
@@ -70,13 +69,12 @@
     inset: 0;
     background: repeating-linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.15) 1px,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1) 1px,
       transparent 1px,
       transparent 2px
     );
     pointer-events: none;
-    z-index: 10;
   }
 
   .scanlines::after {
@@ -86,12 +84,11 @@
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      rgba(0, 255, 255, 0.05) 50%,
+      rgba(0, 255, 255, 0.03) 50%,
       transparent 100%
     );
     animation: scan 8s linear infinite;
     pointer-events: none;
-    z-index: 11;
   }
 
   .glitch-text {
