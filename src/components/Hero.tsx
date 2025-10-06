@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
+import Image from 'next/image'
 
 export function Hero() {
   return (
@@ -22,7 +23,15 @@ export function Hero() {
             transition={{ duration: 0.5 }}
             className="mb-6 inline-block"
           >
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 glow-effect animate-float" />
+            <div className="w-32 h-32 rounded-full overflow-hidden glow-effect animate-float">
+              <Image
+                src="/logo.jpg"
+                alt="Logo"
+                width={128}
+                height={128}
+                className="w-full h-full object-cover"
+              />
+            </div>
           </motion.div>
 
           <motion.h1

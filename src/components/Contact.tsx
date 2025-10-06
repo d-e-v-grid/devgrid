@@ -2,39 +2,62 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { Github, Mail, Twitter, Wallet, Copy, Check, X } from 'lucide-react'
 
 const socialLinks = [
   {
     name: 'GitHub',
     icon: Github,
-    href: 'https://github.com',
+    href: 'https://github.com/luxquant',
     color: 'hover:text-gray-400',
-  },
-  {
-    name: 'LinkedIn',
-    icon: Linkedin,
-    href: 'https://linkedin.com',
-    color: 'hover:text-blue-400',
   },
   {
     name: 'Email',
     icon: Mail,
-    href: 'mailto:contact@example.com',
+    href: 'mailto:luxquant@gst.st',
     color: 'hover:text-red-400',
   },
   {
-    name: 'Twitter',
+    name: 'X (Twitter)',
     icon: Twitter,
-    href: 'https://twitter.com',
+    href: 'https://x.com/LuxQuant',
     color: 'hover:text-sky-400',
+  },
+]
+
+const donations = [
+  {
+    name: 'USDT (TRC20)',
+    address: 'TP35uSgdxbJeQUmowRdkHozzzhrTzsLqPQ',
+    color: 'text-green-400',
+  },
+  {
+    name: 'Ethereum',
+    address: '0x7A81E572Ad870b259D4D2e262cA6558e6d17cf6b',
+    color: 'text-purple-400',
+  },
+  {
+    name: 'Bitcoin (Taproot)',
+    address: 'bc1pj4qeq6zcq5s6s7nsdn5lwyjmzlssjcyh6dvxnfadjsgh30dgzfzsau4ckv',
+    color: 'text-orange-400',
   },
 ]
 
 export function Contact() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const [copiedAddress, setCopiedAddress] = useState<string | null>(null)
+
+  const copyToClipboard = async (address: string) => {
+    try {
+      await navigator.clipboard.writeText(address)
+      setCopiedAddress(address)
+      setTimeout(() => setCopiedAddress(null), 2000)
+    } catch (err) {
+      console.error('Failed to copy:', err)
+    }
+  }
 
   return (
     <section id="contact" className="relative py-32 px-6">
@@ -77,10 +100,53 @@ export function Contact() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mb-16"
+          >
+            <h3 className="text-2xl font-bold mb-6 flex items-center justify-center gap-2">
+              <Wallet className="w-6 h-6 text-gradient" />
+              <span className="text-gradient">Support me with Crypto</span>
+            </h3>
+            <div className="max-w-3xl mx-auto space-y-4">
+              {donations.map((donation, index) => (
+                <motion.div
+                  key={donation.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                  className="glass-effect rounded-2xl p-4 flex items-center justify-between hover:bg-white/10 transition-all group"
+                >
+                  <div className="flex-1 text-left">
+                    <div className={`font-semibold mb-1 ${donation.color}`}>
+                      {donation.name}
+                    </div>
+                    <div className="text-gray-400 text-sm font-mono break-all">
+                      {donation.address}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => copyToClipboard(donation.address)}
+                    className="ml-4 p-3 glass-effect rounded-xl hover:bg-white/20 transition-all hover:scale-110 flex-shrink-0"
+                    aria-label={`Copy ${donation.name} address`}
+                  >
+                    {copiedAddress === donation.address ? (
+                      <Check className="w-5 h-5 text-green-400" />
+                    ) : (
+                      <Copy className="w-5 h-5 text-gray-400 group-hover:text-white" />
+                    )}
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.9 }}
             className="text-sm text-gray-500"
           >
-            © 2024 Taaliman. Built with Next.js, TypeScript, and Tailwind CSS.
+            © {new Date().getFullYear()} LuxQuant. Built with Next.js, TypeScript, and Tailwind CSS.
           </motion.div>
         </motion.div>
       </div>
