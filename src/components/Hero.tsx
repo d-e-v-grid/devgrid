@@ -23,14 +23,19 @@ export function Hero() {
             transition={{ duration: 0.5 }}
             className="mb-6 inline-block"
           >
-            <div className="w-32 h-32 rounded-full overflow-hidden glow-effect animate-float">
-              <Image
-                src="/logo.jpg"
-                alt="Logo"
-                width={128}
-                height={128}
-                className="w-full h-full object-cover"
-              />
+            <div className="relative animate-float">
+              <div className="w-32 h-32 rounded-full overflow-hidden neon-glow-cyan relative">
+                <Image
+                  src="/logo.jpg"
+                  alt="Logo"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-neon-cyan/20 via-transparent to-neon-magenta/20 animate-neon-pulse" />
+              </div>
+              <div className="absolute inset-0 w-32 h-32 rounded-full border-2 border-neon-cyan/50 animate-neon-pulse" />
+              <div className="absolute inset-0 w-32 h-32 rounded-full border border-neon-magenta/30 animate-neon-pulse" style={{ animationDelay: '0.5s' }} />
             </div>
           </motion.div>
 
@@ -40,21 +45,21 @@ export function Hero() {
             transition={{ delay: 0.2, duration: 0.8 }}
             className="text-6xl md:text-8xl font-bold mb-6"
           >
-            <span className="text-gradient">Fullstack Developer</span>
+            <span className="text-gradient-neon font-black tracking-tight">Fullstack Developer</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-xl md:text-2xl text-gray-400 mb-8 max-w-3xl mx-auto"
+            className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
           >
-            Specializing in <span className="text-primary-400">TypeScript</span>,{' '}
-            <span className="text-primary-400">Rust</span>,{' '}
-            <span className="text-primary-400">NestJS</span>,{' '}
-            <span className="text-primary-400">React</span>,{' '}
-            <span className="text-primary-400">SolidJS</span>, and{' '}
-            <span className="text-primary-400">AI/ML/LLM</span>
+            Specializing in <span className="text-neon-cyan font-semibold neon-glow-cyan">TypeScript</span>,{' '}
+            <span className="text-neon-magenta font-semibold neon-glow-magenta">Rust</span>,{' '}
+            <span className="text-neon-pink font-semibold neon-glow-pink">NestJS</span>,{' '}
+            <span className="text-neon-cyan font-semibold neon-glow-cyan">React</span>,{' '}
+            <span className="text-neon-purple font-semibold">SolidJS</span>, and{' '}
+            <span className="text-neon-magenta font-semibold neon-glow-magenta">AI/ML/LLM</span>
           </motion.p>
 
           <motion.div
@@ -65,15 +70,18 @@ export function Hero() {
           >
             <a
               href="#projects"
-              className="px-8 py-4 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary-500/50"
+              className="relative px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-magenta rounded-lg font-bold text-black transition-all hover:scale-105 overflow-hidden group"
             >
-              View Projects
+              <span className="relative z-10">View Projects</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-neon-magenta to-neon-cyan opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 neon-glow-cyan opacity-50" />
             </a>
             <a
               href="#contact"
-              className="px-8 py-4 glass-effect rounded-lg font-semibold transition-all hover:scale-105 hover:bg-white/10"
+              className="relative px-8 py-4 cyber-glass rounded-lg font-bold transition-all hover:scale-105 overflow-hidden group"
             >
-              Get in Touch
+              <span className="relative z-10 text-neon-cyan">Get in Touch</span>
+              <div className="absolute inset-0 bg-neon-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity" />
             </a>
           </motion.div>
         </motion.div>
