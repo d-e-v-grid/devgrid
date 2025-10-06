@@ -31,14 +31,24 @@ export function Background() {
       vy: number
       size: number
       opacity: number
+      color: string
 
       constructor() {
         this.x = Math.random() * (canvas?.width || 0)
         this.y = Math.random() * (canvas?.height || 0)
         this.vx = (Math.random() - 0.5) * 0.5
         this.vy = (Math.random() - 0.5) * 0.5
-        this.size = Math.random() * 2 + 1
-        this.opacity = Math.random() * 0.5 + 0.2
+        this.size = Math.random() * 3 + 1
+        this.opacity = Math.random() * 0.5 + 0.3
+
+        // Neon colors
+        const colors = [
+          '0, 255, 255',    // cyan
+          '255, 0, 255',    // magenta
+          '255, 0, 110',    // pink
+          '0, 217, 255',    // blue
+        ]
+        this.color = colors[Math.floor(Math.random() * colors.length)]
       }
 
       update() {
@@ -51,9 +61,24 @@ export function Background() {
 
       draw() {
         if (!ctx) return
+
+        // Draw glow
+        const gradient = ctx.createRadialGradient(
+          this.x, this.y, 0,
+          this.x, this.y, this.size * 3
+        )
+        gradient.addColorStop(0, `rgba(${this.color}, ${this.opacity})`)
+        gradient.addColorStop(1, `rgba(${this.color}, 0)`)
+
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2)
+        ctx.fillStyle = gradient
+        ctx.fill()
+
+        // Draw core
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(14, 165, 233, ${this.opacity})`
+        ctx.fillStyle = `rgba(${this.color}, ${this.opacity + 0.3})`
         ctx.fill()
       }
     }
@@ -82,8 +107,18 @@ export function Background() {
 
           if (distance < 150) {
             ctx.beginPath()
-            ctx.strokeStyle = `rgba(14, 165, 233, ${0.2 * (1 - distance / 150)})`
-            ctx.lineWidth = 0.5
+            const opacity = 0.3 * (1 - distance / 150)
+
+            // Create gradient line
+            const gradient = ctx.createLinearGradient(
+              particle.x, particle.y,
+              otherParticle.x, otherParticle.y
+            )
+            gradient.addColorStop(0, `rgba(${particle.color}, ${opacity})`)
+            gradient.addColorStop(1, `rgba(${otherParticle.color}, ${opacity})`)
+
+            ctx.strokeStyle = gradient
+            ctx.lineWidth = 1
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(otherParticle.x, otherParticle.y)
             ctx.stroke()
@@ -106,7 +141,9 @@ export function Background() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 z-0 pointer-events-none"
-      style={{ background: 'radial-gradient(ellipse at bottom, #0c4a6e 0%, #000000 50%)' }}
+      style={{
+        background: 'radial-gradient(ellipse at top, #1a0033 0%, #000000 40%, #001a33 70%, #000000 100%)'
+      }}
     />
   )
 }

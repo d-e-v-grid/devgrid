@@ -9,12 +9,16 @@ import { Navigation } from '@/components/Navigation'
 import { CursorGlow } from '@/components/CursorGlow'
 import { GridPattern } from '@/components/GridPattern'
 import { ScrollProgress } from '@/components/ScrollProgress'
+import { Scanlines } from '@/components/Scanlines'
+import { CyberGrid } from '@/components/CyberGrid'
 
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden">
       <Background />
+      <CyberGrid />
       <GridPattern />
+      <Scanlines />
       <CursorGlow />
       <ScrollProgress />
       <Navigation />

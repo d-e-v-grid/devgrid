@@ -11,9 +11,15 @@ export function ScrollProgress() {
   })
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 origin-left z-50"
-      style={{ scaleX }}
-    />
+    <>
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 holographic origin-left z-50"
+        style={{ scaleX }}
+      />
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-pink origin-left z-50 blur-sm"
+        style={{ scaleX }}
+      />
+    </>
   )
 }

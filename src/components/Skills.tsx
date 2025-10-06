@@ -45,9 +45,9 @@ export function Skills() {
           className="text-center mb-16"
         >
           <h2 className="text-5xl font-bold mb-4">
-            <span className="text-gradient">Technical Skills</span>
+            <span className="text-gradient-neon font-black">Technical Skills</span>
           </h2>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-300 text-lg">
             Technologies and tools I work with
           </p>
         </motion.div>
@@ -59,12 +59,13 @@ export function Skills() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
-              className="glass-effect rounded-2xl p-8 hover:bg-white/10 transition-all"
+              className="cyber-glass rounded-2xl p-8 hover:scale-105 transition-all relative overflow-hidden group"
             >
-              <h3 className="text-2xl font-bold text-primary-400 mb-6">
+              <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/5 via-transparent to-neon-magenta/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <h3 className="relative text-2xl font-bold text-neon-cyan mb-6 neon-glow-cyan">
                 {skillGroup.category}
               </h3>
-              <div className="flex flex-wrap gap-3">
+              <div className="relative flex flex-wrap gap-3">
                 {skillGroup.items.map((skill, skillIndex) => (
                   <motion.span
                     key={skill}
@@ -74,7 +75,7 @@ export function Skills() {
                       duration: 0.3,
                       delay: groupIndex * 0.1 + skillIndex * 0.05,
                     }}
-                    className="px-4 py-2 bg-primary-950/50 border border-primary-800/50 rounded-lg text-sm font-medium hover:bg-primary-900/50 hover:border-primary-700/50 transition-all cursor-default"
+                    className="px-4 py-2 bg-black/50 border border-neon-magenta/30 rounded-lg text-sm font-medium hover:bg-neon-magenta/10 hover:border-neon-magenta hover:text-neon-magenta transition-all cursor-default hover:scale-110"
                   >
                     {skill}
                   </motion.span>
